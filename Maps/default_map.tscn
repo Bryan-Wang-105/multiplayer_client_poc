@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://bv1f736qxswio"]
+
+[ext_resource type="Texture2D" uid="uid://dpkudd00lnkj8" path="res://textures/green.png" id="1_5pfyc"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tbrp5"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_4kjw0"]
+sky_material = SubResource("ProceduralSkyMaterial_tbrp5")
+
+[sub_resource type="Environment" id="Environment_nl1uh"]
+background_mode = 2
+sky = SubResource("Sky_4kjw0")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_bolmb"]
+points = PackedVector3Array(-25, -0.0625, -25, -25, 0.0625, -25, 25, -0.0625, -25, -25, -0.0625, 25, -25, 0.0625, 25, 25, 0.0625, -25, 25, -0.0625, 25, 25, 0.0625, 25)
+
+[sub_resource type="BoxMesh" id="BoxMesh_h6133"]
+size = Vector3(50, 0.125, 50)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ubil2"]
+albedo_texture = ExtResource("1_5pfyc")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vvd24"]
+albedo_color = Color(0.054902, 0.223529, 0.145098, 1)
+
+[node name="Default Map" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 30.6352, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_nl1uh")
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="FloorCollider" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("ConvexPolygonShape3D_bolmb")
+
+[node name="FloorMesh" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("BoxMesh_h6133")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_ubil2")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.00413, 0)
+size = Vector3(50, 4, 50)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.02064, 0)
+operation = 2
+size = Vector3(49.5, 3.99805, 49.5)
+material = SubResource("StandardMaterial3D_vvd24")

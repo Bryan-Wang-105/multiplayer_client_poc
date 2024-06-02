@@ -1,0 +1,86 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgx7wa1cpuk7y"]
+
+[ext_resource type="Script" path="res://Architecture/Main.gd" id="1_14kdi"]
+
+[node name="Root Node" type="Node"]
+
+[node name="Main" type="Node" parent="."]
+script = ExtResource("1_14kdi")
+game_world_path = "res://Architecture/game_world.tscn"
+default_map_path = "res://Maps/default_map.tscn"
+player_path = "res://player/player.tscn"
+
+[node name="Main Menu" type="Node2D" parent="Main"]
+
+[node name="BackgroundColor" type="ColorRect" parent="Main/Main Menu"]
+offset_right = 1152.0
+offset_bottom = 640.0
+color = Color(0.47451, 0.243137, 0.243137, 1)
+
+[node name="Title" type="Label" parent="Main/Main Menu"]
+offset_left = 192.0
+offset_top = 192.0
+offset_right = 958.0
+offset_bottom = 261.0
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 50
+text = "MULTIPLAYER CLIENT CONCEPT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PortLbl" type="Label" parent="Main/Main Menu"]
+offset_left = 504.0
+offset_top = 317.0
+offset_right = 649.0
+offset_bottom = 345.0
+theme_override_font_sizes/font_size = 20
+text = "Port Number"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="portText" type="TextEdit" parent="Main/Main Menu/PortLbl"]
+layout_mode = 0
+offset_top = 27.0
+offset_right = 144.0
+offset_bottom = 67.0
+
+[node name="AddressLbl" type="Label" parent="Main/Main Menu"]
+offset_left = 504.0
+offset_top = 411.0
+offset_right = 649.0
+offset_bottom = 439.0
+theme_override_font_sizes/font_size = 20
+text = "Server Address"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="addressText" type="TextEdit" parent="Main/Main Menu/AddressLbl"]
+layout_mode = 0
+offset_top = 27.0
+offset_right = 144.0
+offset_bottom = 67.0
+
+[node name="Button" type="Button" parent="Main/Main Menu"]
+offset_left = 488.0
+offset_top = 512.0
+offset_right = 664.0
+offset_bottom = 552.0
+text = "Join Server"
+
+[node name="NetworkingInfo" type="Node2D" parent="Main"]
+
+[node name="ClientLbl" type="Label" parent="Main/NetworkingInfo"]
+offset_left = 24.0
+offset_top = 22.0
+offset_right = 152.0
+offset_bottom = 71.0
+text = "CLIENT
+ID: "
+
+[node name="IDlbl" type="Label" parent="Main/NetworkingInfo"]
+offset_left = 53.0
+offset_top = 49.0
+offset_right = 125.0
+offset_bottom = 72.0
+
+[connection signal="pressed" from="Main/Main Menu/Button" to="Main" method="_on_join_server_pressed"]
