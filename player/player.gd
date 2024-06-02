@@ -24,6 +24,7 @@ func _ready() -> void:
 		remove_child(id_label)
 	
 	print("In player ready")
+	global_position = Vector3(0,.35,0)
 	name = str(get_multiplayer_authority())
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
