@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="multiplayer_client_poc"
+config/name="client_poc"
 run/main_scene="res://Architecture/root_node.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"

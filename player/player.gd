@@ -29,10 +29,17 @@ func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _input(event):
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion and is_multiplayer_authority():
 		rotate_y(-event.relative.x * mouse_sens)
 		head.rotate_x(-event.relative.y * mouse_sens)
 		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-85),deg_to_rad(85))
+		
+		print("HEAD ROTATION DEGREES IS:")
+		print(head.rotation_degrees.x)
+		print(rotation_degrees.y)
+		
+		#global_rotation.y = head.rotation_degrees.y
+		rpc("remote_set_rotation", rotation)
 
 func _physics_process(delta: float) -> void:
 	if is_multiplayer_authority():
@@ -63,6 +70,7 @@ func _physics_process(delta: float) -> void:
 			velocity.z = move_toward(velocity.z, 0, SPEED)
 		
 		if Input.is_action_just_pressed("escape"):
+			#player_disconnect()
 			get_tree().quit()
 		
 		rpc("remote_set_position", global_position)
@@ -76,3 +84,12 @@ func set_username(id):
 @rpc("unreliable")
 func remote_set_position(authority_position):
 	global_position = authority_position
+
+@rpc("unreliable")
+func remote_set_rotation(authority_rotation):
+	global_rotation = authority_rotation
+
+#func player_disconnect():
+	#var packet_peer = multiplayer.multiplayer_peer.get_peer(get_multiplayer_authority())
+	#packet_peer.peer_disconnect()
+	#queue_free()

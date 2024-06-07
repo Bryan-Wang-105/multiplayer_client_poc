@@ -1,20 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://bmnsw2tqa78u3"]
+[gd_scene load_steps=5 format=3 uid="uid://bmnsw2tqa78u3"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_i151h"]
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_v8wxm"]
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_lpp21"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_v8wxm"]
+[sub_resource type="BoxMesh" id="BoxMesh_o5nwb"]
+size = Vector3(0.2, 0.2, 1)
 
 [node name="Player" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03407, 0)
 script = ExtResource("1_i151h")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_lpp21")
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_v8wxm")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+mesh = SubResource("CapsuleMesh_lpp21")
+skeleton = NodePath("../..")
 
 [node name="Head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.758696, -0.00564885)
@@ -25,3 +29,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.758696, -0.00564885)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.26828, 0)
 pixel_size = 0.01
 billboard = 1
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.533629, 0.845719, 0, -0.845719, 0.533629, -0.475655, -0.00337756, -0.244443)
+mesh = SubResource("BoxMesh_o5nwb")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="MeshInstance3D3"]
+transform = Transform3D(1, 0, 0, 0, 0.996021, -0.0891212, 0, 0.0891212, 0.996021, 0.916264, 0.0212795, 0.0454745)
+mesh = SubResource("BoxMesh_o5nwb")
+skeleton = NodePath("../..")
